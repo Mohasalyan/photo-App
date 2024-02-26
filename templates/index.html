@@ -1,0 +1,146 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!---------------------------------------        Font AWesome       --------------------------------------->
+    <link rel="stylesheet" href="{{ url_for('static', filename='./css/all.main.css')}}" />
+    <!---------------------------------------        Main Style       --------------------------------------->
+<link rel="stylesheet" href="{{ url_for('static', filename='./css/main.css') }}">
+</head>
+<body>
+
+    <div class="contineer">
+        
+        <div class="sidebar">
+            <div class="row">
+                <div class="col1">
+                    <ul>
+                        <li class="liActive">
+                            <span class="icon">                    
+                                <img src="./images/picture-svgrepo-com-fill.svg" alt="">
+                            </span>
+                            <a href="#">General</a>
+                        </li>
+                        <li>
+                            <span class="icon">
+                                <img src="./images/filter-invert-svgrepo-com.svg" alt="">
+                            </span>
+                            <a href="#">Filter</a>
+                        </li>
+                        <li>
+                            <span class="icon">
+                                <img src="./images/frame-svgrepo-com.svg" alt="">
+                            </span>
+                            <a href="#">Frame</a>
+                        </li>
+                        <li>
+                            <span class="icon">
+                                <img src="./images/bold-svgrepo-com.svg" alt="">
+                            </span>
+                            <a href="#">Text</a>
+                        </li>
+                        <li>
+                            <span class="icon">
+                                <img src="./images/hurt-svgrepo-com.svg" alt="">
+                            </span>
+                            <a href="#">Stickers</a>
+
+                        </li>
+                    </ul>
+                </div>
+                <div class="col2">
+                    <ul>
+                        <li>
+                            <div class="liHeader ResizeHeader">
+                                <img src="./images/resize-out-svgrepo-com.svg" alt="">
+                                <p>Resize</p>
+                            </div>
+                            <div class="resizeCont dsiable">
+                                <p>selct the size from the menu </p>
+                                <select name="Resize" id="ResizeImg">
+                                    <option value="4.5:3.5">4.5x3.5</option>
+                                    <option value="4:4">4x4</option>
+                                    <option value="10:10">10x10</option>
+                                    <option value="10:15">10x15</option>
+                                    <option value="5:7.5">5x7.5</option>
+                                    <option value="5:5">5x5</option>
+                                    <option value="15:20">15x20</option>
+                                    <option value="7:7">7x7</option>
+                                    <option value="6.5:9">6.5x9</option>
+                                    <option value="6:9">6x9</option>
+                                    <option value="7.5:10">7.5x10</option>
+                                    <option value="20:30">20x30</option>
+                                    <option value="15:20">15x20</option>
+                                  </select>
+                                  <p class="OR">OR</p>
+                                  <div class="resizeInput">
+                                    <div class="widthinput">
+                                        <p>width:</p>
+                                        <input type="number" min="1">
+                                      </div>
+                                      <div class="heightinput">
+                                        <p>Hight:</p>
+                                        <input type="number" min="1" >
+                                      </div>
+                                  </div>
+                                  <div class="Resizebtn">
+                                    <button class="ResizeCancle">cancle</button>
+                                    <button>Resize</button>
+                                  </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="liHeader">
+                                <img src="./images/crop-svgrepo-com.svg" alt="">
+                                <p>Crop</p>
+                            </div>
+                            
+                        </li>
+                        <li>
+                            <div class="liHeader">
+                                <img src="./images/rotate-right-svgrepo-com.svg" alt="">
+                                <p>Rotate</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="liHeader">
+                                <img src="./images/rectangle-svgrepo-com.svg" alt="">
+                                <p>Round</p>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- image upload and show contineer -->
+        <div class="primContineer">
+            <div class="upload" id="upload" ondrop="onDrop(event)" ondragover="dragging(event)" >
+                <p >
+                    <label class="pretty-upload">
+                        <input type="file" multiple type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" />
+                        Upload From Computer
+                    </label>
+                </p> 
+            </div>
+
+
+            <div class="cont disableUpload"  id="moreUpload">
+                <p ondrop="onDrop(event)" ondragover="dragging(event)">
+                    <label class="pretty-upload moreUpload ">
+                        <input type="file" multiple type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" />
+                        Upload From Computer
+                    </label>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="{{ url_for('static', filename='./js/main.js') }}"></script>
+</html>
