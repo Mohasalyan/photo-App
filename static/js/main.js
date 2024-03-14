@@ -4,6 +4,8 @@ let imageSelectIcons;
 let isImgSelected = [];
 let ImagesUploadedToBackend =[] 
 let imageFormData = new FormData()
+window.isImgSelected = isImgSelected // globale variable for another files 
+
 //upload image by selceting 
 const loadFile = (event) => {
     for (let i = numofimg; i < ((event.target.files.length)+numofimg); i++) {
@@ -12,15 +14,19 @@ const loadFile = (event) => {
         imageCont.className = "imageCont";
         imageCont.id = "imageCont-" + i;
         document.querySelector(".cont").appendChild(imageCont);
-
+        console.log(event.target.files[i-numofimg].name)
         addSelectImg(i);
 
         // get images link and creat images
         let image = document.createElement('img');
         image.src = URL.createObjectURL(event.target.files[i-numofimg]);
+        image.setAttribute('name',event.target.files[i-numofimg].name) // insert attribute name to refer to the name file of image
         imgSrcArr.push(image.src);
         image.id = `imageNum-` + i;
         document.querySelector("#imageCont-" + i).appendChild(image);
+        /*
+        collect the image uploaded to send to back-end
+        */
         imageFormData.append('files', event.target.files[i - numofimg]) 
         imageFormData.append('name', event.target.files[i - numofimg].name)         
         //get a natural size for image and creat a span for each image to show the size of image
@@ -63,6 +69,7 @@ const onDrop = (event) => {
         image.src = URL.createObjectURL(files[i-numofimg]);
         imgSrcArr.push(image.src);
         image.id = `imageNum-` + i;
+        image.setAttribute('name',event.target.files[i-numofimg].name) // insert attribute name to refer to the name file of image
         document.querySelector("#imageCont-" + i).appendChild(image);
 
         imageFormData.append('files', files[i - numofimg]) 
@@ -113,13 +120,16 @@ function getImgSelected(item){
     item.addEventListener('click', function(){
         if(!(item.classList.contains("bgFill"))){
             item.classList.add("bgFill")
-            isImgSelected.push(document.getElementById("imageNum-" + item.id.slice(10, item.id.length)).src)
+            console.log(document.getElementById("imageNum-" + item.id.slice(10, item.id.length)))
+            isImgSelected.push(document.getElementById("imageNum-" + item.id.slice(10, item.id.length)).name)//change to name
             console.log(isImgSelected)
+            window.isImgSelected = isImgSelected
         }
         else{
             item.classList.remove("bgFill")
-            isImgSelected = isImgSelected.filter(e => e!== (document.getElementById("imageNum-" + item.id.slice(10, item.id.length)).src))
+            isImgSelected = isImgSelected.filter(e => e!== (document.getElementById("imageNum-" + item.id.slice(10, item.id.length)).name))
             console.log(isImgSelected)
+            window.isImgSelected = isImgSelected
 
         }
 
