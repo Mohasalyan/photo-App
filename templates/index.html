@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <!---------------------------------------        Font AWesome       --------------------------------------->
-    <link rel="stylesheet" href="./css/all.main.css" />
-    <!---------------------------------------        Main Style       --------------------------------------->
-    <link rel="stylesheet" href="./css/main.css" />
+     <!---------------------------------------        Font AWesome       --------------------------------------->
+     <link rel="stylesheet" href="./css/all.main.css" />
+     <!---------------------------------------        Main Style       --------------------------------------->
+     <link rel="stylesheet" href="./css/main.css" />
 </head>
 
 <body>
@@ -137,6 +137,18 @@
 
         <!-- image upload and show contineer -->
         <div class="primContineer">
+            <div class="popUp disable">
+                <div class="closePopUp">
+                    X
+                </div>
+                <div class="mainImg">
+                    <div class="pre"><</div>
+                    <div class="img">
+                    </div>
+                    <div class="nex">></div>
+                </div>
+                <div class="elseImg"></div>
+                </div>
             <div class="upload" id="upload" ondrop="onDrop(event)" ondragover="dragging(event)">
                 <p>
                     <label class="pretty-upload">
@@ -149,6 +161,7 @@
 
 
             <div class="cont disableUpload" id="moreUpload">
+
                 <p ondrop="onDrop(event)" ondragover="dragging(event)">
                     <label class="pretty-upload moreUpload ">
                         <input type="file" multiple type="file" accept="image/*" name="image" id="file"
@@ -161,7 +174,7 @@
     </div>
 </body>
 
-<script src="/js/main.js"></script>
-<script src="/js/handleSelectedPhoto.js"></script>
+<script src="/static/js/main.js"></script>
+<script src="/static/js/handleSelectedPhoto.js"></script>
 
 </html>

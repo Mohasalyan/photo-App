@@ -14,7 +14,6 @@ const loadFile = (event) => {
         imageCont.className = "imageCont";
         imageCont.id = "imageCont-" + i;
         document.querySelector(".cont").appendChild(imageCont);
-        console.log(event.target.files[i-numofimg].name)
         addSelectImg(i);
 
         // get images link and creat images
@@ -23,6 +22,7 @@ const loadFile = (event) => {
         image.setAttribute('name',event.target.files[i-numofimg].name) // insert attribute name to refer to the name file of image
         imgSrcArr.push(image.src);
         image.id = `imageNum-` + i;
+        image.className = "myImg"
         document.querySelector("#imageCont-" + i).appendChild(image);
         /*
         collect the image uploaded to send to back-end
@@ -38,7 +38,7 @@ const loadFile = (event) => {
         method: 'POST', 
         body: imageFormData, 
     }).then(function (response) { 
-        console.log(response) 
+        // console.log(response) 
         imageFormData =new FormData(); 
     }) 
     let upload = document.getElementById("upload").classList.add("disableUpload")
@@ -46,6 +46,8 @@ const loadFile = (event) => {
     numofimg += event.target.files.length;
     imageSelectIcons = document.querySelectorAll(".selectIcon");
     imageSelectIcons.forEach(getImgSelected);
+    imagePopUp(imgSrcArr)
+
 };
 
 //upload image by drag and drop
@@ -69,6 +71,7 @@ const onDrop = (event) => {
         image.src = URL.createObjectURL(files[i-numofimg]);
         imgSrcArr.push(image.src);
         image.id = `imageNum-` + i;
+        image.className = "myImg"
         image.setAttribute('name',event.target.files[i-numofimg].name) // insert attribute name to refer to the name file of image
         document.querySelector("#imageCont-" + i).appendChild(image);
 
@@ -84,7 +87,7 @@ const onDrop = (event) => {
         method: 'POST', 
         body: imageFormData, 
     }).then(function (response) { 
-        console.log(response) 
+        // console.log(response) 
         imageFormData =new FormData(); 
     }) 
     let upload = document.getElementById("upload").classList.add("disableUpload")
@@ -92,6 +95,8 @@ const onDrop = (event) => {
     numofimg+=files.length;
     imageSelectIcons = document.querySelectorAll(".selectIcon");
     imageSelectIcons.forEach(getImgSelected);
+    let allImg = document.querySelectorAll(".myImg")
+    allImg.forEach(imagePopUp);
   };
 
 
@@ -120,19 +125,17 @@ function getImgSelected(item){
     item.addEventListener('click', function(){
         if(!(item.classList.contains("bgFill"))){
             item.classList.add("bgFill")
-            console.log(document.getElementById("imageNum-" + item.id.slice(10, item.id.length)))
+            // console.log(document.getElementById("imageNum-" + item.id.slice(10, item.id.length)))
             isImgSelected.push(document.getElementById("imageNum-" + item.id.slice(10, item.id.length)).name)//change to name
-            console.log(isImgSelected)
+            // console.log(isImgSelected)
             window.isImgSelected = isImgSelected
         }
         else{
             item.classList.remove("bgFill")
             isImgSelected = isImgSelected.filter(e => e!== (document.getElementById("imageNum-" + item.id.slice(10, item.id.length)).name))
-            console.log(isImgSelected)
+            // console.log(isImgSelected)
             window.isImgSelected = isImgSelected
-
         }
-
     })
 }
 
@@ -141,17 +144,14 @@ function getImgSelected(item){
 
 
 //  select custm size of image problem
-
 let ResizeImgSelect = document.getElementById("ResizeImg")
 let inputInResizeInput = document.querySelectorAll(".resizeInput input")
-
 if(!(ResizeImgSelect.value === "custom")){
     inputInResizeInput.forEach((e)=>{
         e.value = null
         e.setAttribute("readonly", "readonly")
     })
 }
-
 else{
     inputInResizeInput.forEach((e)=>{
         e.removeAttribute("readonly", "readonly")
@@ -183,7 +183,6 @@ ResizeImgSelect.addEventListener("change", ()=>{
 
 
 let ulOfCol2 = document.querySelectorAll(".sidebar .row .col2 ul")
-
 ulOfCol2.forEach((e, i) =>{
     if(!(ulOfCol2[0] ===e)){
         e.classList.add("noneDisplay")
@@ -192,7 +191,6 @@ ulOfCol2.forEach((e, i) =>{
 
 
 let colOneSidebarList = document.querySelectorAll("#colOneSidebarList li")
-
 colOneSidebarList.forEach((el, i)=>{
     el.addEventListener("click", ()=>{
         colOneSidebarList.forEach((el1, i2)=>{
@@ -226,3 +224,89 @@ ResizeCancle.addEventListener('click', function(){
     let resizeCont= document.querySelector('.resizeCont')
     resizeCont.classList.add("dsiable")
 })
+
+
+let popUpWindow = document.querySelector(".popUp")
+function imagePopUp(arr){
+    let mainImg = document.querySelector(".popUp .mainImg .img")
+    let elseImg = document.querySelector(".popUp  .elseImg")
+    let allImg = document.querySelectorAll("#moreUpload .imageCont img")
+    let closePopUp = document.querySelector(".closePopUp")
+    let imggg = document.createElement("img")
+    let pre = document.querySelector(".pre")
+    let next = document.querySelector(".nex")
+
+    for(let i = 1; i<=arr.length; i++){
+        let image = document.createElement('img');
+        image.src = arr[i-1]
+        image.className = "imgPopUp-" + i
+        elseImg.appendChild(image)
+    }
+    
+    allImg.forEach((item,i)=>{
+        item.addEventListener('click', function(){
+
+            imggg.src = item.src
+            mainImg.appendChild(imggg)
+            document.getElementById("moreUpload").style.opacity = 0.5;
+            document.querySelector(".cont").classList.add("hidden")
+            popUpWindow.classList.remove("disable")
+            console.log()
+            for(let i = 1; i<=arr.length; i++){
+                if(imggg.src == arr[i-1]){
+                    document.querySelector(".imgPopUp-" + i).style.opacity = 1
+                }
+                else{
+                    document.querySelector(".imgPopUp-" + i).style.opacity = 0.5
+                }
+            }
+
+
+        })
+        closePopUp.addEventListener('click', ()=>{
+            imggg.innerHTML = ''
+            popUpWindow.classList.add("disable")
+            document.querySelector(".cont").classList.remove("hidden")
+            document.getElementById("moreUpload").style.opacity = 1;
+        })
+
+
+    })
+
+    pre.addEventListener('click', ()=>{
+        if(arr.indexOf(imggg.src)>0){
+            imggg.src = arr[arr.indexOf(imggg.src)-1]
+        }
+        else{
+            imggg.src = arr[arr.length-1]
+        }
+        for(let i = 1; i<=arr.length; i++){
+            if(imggg.src == arr[i-1]){
+                document.querySelector(".imgPopUp-" + i).style.opacity = 1
+            }
+            else{
+                document.querySelector(".imgPopUp-" + i).style.opacity = 0.5
+            }
+        }
+
+    })
+    next.addEventListener('click', ()=>{
+        if(arr.indexOf(imggg.src)< arr.length-1){
+            imggg.src = arr[arr.indexOf(imggg.src)+1]
+        }
+        else{
+            imggg.src = arr[0]
+
+        }
+        for(let i = 1; i<=arr.length; i++){
+            if(imggg.src == arr[i-1]){
+                document.querySelector(".imgPopUp-" + i).style.opacity = 1
+            }
+            else{
+                document.querySelector(".imgPopUp-" + i).style.opacity = 0.5
+            }
+        }
+    })
+
+
+}

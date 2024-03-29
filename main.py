@@ -18,7 +18,10 @@ try:
         for file in files_uploaded_before:
             os.remove(f"{os.path.join(app.instance_path,'editbyfilter')}\{file}")
 except:
-    os.mkdir(app.instance_path)
+    try:
+        os.mkdir(app.instance_path)
+    except:
+        pass
     os.mkdir(app.instance_path+'/editbyfilter')
 
 

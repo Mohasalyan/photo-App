@@ -1,5 +1,8 @@
 /* general style */
 
+
+
+
 *{
     margin: 0;
     padding: 0;
@@ -36,6 +39,10 @@ body{
     display: none !important;
 }
 
+
+::-webkit-scrollbar {
+    display: none;
+  }
 /* sidebar section style */
 .sidebar{
     position: fixed;
@@ -254,6 +261,10 @@ body{
     height: 100%;
 }
 
+.cont.hidden{
+    display: none;
+}
+
 .cont .imageCont{
     display: flex;
     flex-direction: column;
@@ -288,13 +299,82 @@ body{
 }
 
 .cont .imageCont span.bgFill{
-
     background-color: #43a043;
 }
+
 .moreUpload{
     width: 250px;
     height: 170px;
     line-height: 160px;
+}
+
+.popUp{
+    width: 60%;
+    height: 80%;
+    position: fixed;
+    left: calc(50% +  160px);
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fefefe;
+    z-index: 999999;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+}
+
+.closePopUp{
+    direction: rtl;
+    padding: 20px 20px 0 20px;
+    font-size: 28px;
+    color: #666;
+    cursor: pointer;
+    display: inline;
+}
+
+.mainImg{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 28px;
+    padding: 20px;
+    color: #666;
+
+}
+.mainImg .pre,
+.mainImg .nex{
+    cursor: pointer;
+}
+
+.mainImg .img{
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+    max-height: 350px;
+}
+
+.mainImg img{
+    width: 75%;
+    max-height: 100%;
+}
+
+.elseImg{
+    display: flex;
+    gap: 10px;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    padding: 10px;
+}
+.elseImg img{
+    width: 150px;
+    height: 90px;
+    border: 3px solid #43a043;
+    border-radius: 6px;
+    opacity: 0.5;
+}
+.popUp.disable{
+    display: none;
 }
 
 .moreUpload input{
