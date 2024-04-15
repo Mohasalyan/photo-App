@@ -7,4 +7,3 @@ def getFilters():
     return filters
 
 
-

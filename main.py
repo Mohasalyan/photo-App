@@ -1,7 +1,7 @@
 import os 
 from flask import Flask,render_template,send_from_directory,send_file,request,jsonify
 from function import getFilters
-from editImage import filterDic
+from editImage import filterDic,get_image_dpi,convertImage
 app = Flask(__name__)
 try:
     files_uploaded_before = os.listdir(os.path.join(app.instance_path,'uploads'))
@@ -47,14 +47,29 @@ def sendFilters(filename):
 @app.route('/filter/<filename>' ,methods=['POST','GET'])
 def applyFilter(filename):
     if request.method == 'POST':
-        print(request.json)
         filterDic[request.json.get('filter')](request.json.get('imageList'),app.instance_path)
         return jsonify({'data':"done"})
     elif request.method =='GET':
-        print("HI")
-        print(filename)
+
         return  send_from_directory(f"{os.path.join(app.instance_path,'editbyfilter')}",filename)
 
+@app.route('/resize/<filename>',methods=['POST','GET'])
+def applyresize(filename):
+    if request.method =='POST':
+        image = request.json.get('image','')
+        index = request.json.get('sizeIndex','')
+        if(os.path.exists(app.instance_path+'/editbyfilter/'+image)):
+            dpi = get_image_dpi(app.instance_path+'/editbyfilter/'+image)
+            convertImage(int(index),app.instance_path+'/editbyfilter/'+image,dpi,app.instance_path+'/editbyfilter/'+image)
+
+        else:
+            dpi = get_image_dpi(app.instance_path+'/uploads/'+image)
+            convertImage(int(index),app.instance_path+'/uploads/'+image,dpi,app.instance_path+'/editbyfilter/'+image)
+    elif request.method == 'GET':
+        return  send_from_directory(f"{os.path.join(app.instance_path,'editbyfilter')}",filename)
+
+
+    return jsonify({'data':"done"})
 @app.route('/ImageUploaded' , methods=['POST'])
 def handle():
     files = request.files.getlist('files')
