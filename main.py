@@ -46,12 +46,13 @@ def sendFilters(filename):
 
 @app.route('/filter/<filename>' ,methods=['POST','GET'])
 def applyFilter(filename):
+    print(123)
     if request.method == 'POST':
+        print(request.json)
         filterDic[request.json.get('filter')](request.json.get('imageList'),app.instance_path)
         return jsonify({'data':"done"})
     elif request.method =='GET':
-
-        return  send_from_directory(f"{os.path.join(app.instance_path,'editbyfilter')}",filename)
+        return  send_from_directory(f"{os.path.join(app.instance_path,'editbyfilter')}",filename.split('?')[0])
 
 @app.route('/resize/<filename>',methods=['POST','GET'])
 def applyresize(filename):
@@ -66,7 +67,7 @@ def applyresize(filename):
             dpi = get_image_dpi(app.instance_path+'/uploads/'+image)
             convertImage(int(index),app.instance_path+'/uploads/'+image,dpi,app.instance_path+'/editbyfilter/'+image)
     elif request.method == 'GET':
-        return  send_from_directory(f"{os.path.join(app.instance_path,'editbyfilter')}",filename)
+        return  send_from_directory(f"{os.path.join(app.instance_path,'editbyfilter')}",filename.split('?')[0])
 
 
     return jsonify({'data':"done"})

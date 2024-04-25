@@ -17,6 +17,7 @@ def BlurFilter(imageList,dirction):
         loadImage = cv2.cvtColor(loadImage,cv2.COLOR_BGR2RGB)
         Blur_Effect_Img = cv2.GaussianBlur(loadImage, (35, 35), 0)
         cv2.imwrite(f"{dirction}/editbyfilter/{image}",Blur_Effect_Img)
+        print("done")
 def SepiaFilter(imageList,dirction):
     print(imageList,dirction)
     for image in imageList:
@@ -102,3 +103,9 @@ def convertImage(index,path,dpi,save):
 # convertImage(0,'C:/Users/XPRISTO/Desktop/306735038_3084260165054148_6564624860134792767_n.jpg',(96,96))
     
 # print(get_image_dpi('E:/ImageEditor/ImageEditor/instance/uploads/306735038_3084260165054148_6564624860134792767_n.jpg'))
+
+
+# loadImage= cv2.imread("C:\Users\XPRISTO\Desktop\testImage.png")
+# loadImage = cv2.cvtColor(loadImage,cv2.COLOR_BGR2RGB)
+# _, bw_image = cv2.threshold(loadImage, 127, 255, cv2.THRESH_BINARY)
+# cv2.imwrite(f"./BlackWhite.jpg",bw_image)
