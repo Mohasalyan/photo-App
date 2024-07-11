@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convert Image to Base64</title>
+</head>
+
+<body>
+    <img id="imageElement" src="../../ww.jpg" alt="Image to Convert">
+    <button>Send Image to Backend</button>
+
+    <script>
+        function convertImageToBase64(image) {
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+
+            canvas.width = image.width;
+            canvas.height = image.height;
+
+            context.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+            const base64String = canvas.toDataURL('image/jpeg'); // You can change the format if needed
+            return base64String
+        }
+        const imgElement = document.getElementById('imageElement');
+        // Wait until the image is fully loaded
+        if (imgElement.complete) {
+            convertImageToBase64(imgElement);
+        }
+
+        function sendToBackend(base64String,FileName) {
+            fetch('http://localhost:5000/base64', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ image: base64String ,Name:FileName})
+            })
+                .then(response => response.json())
+                .then(data => console.log('Success:', data))
+                .catch((error) => console.error('Error:', error));
+        }
+
+        btn = document.querySelector("button");
+        btn.addEventListener("click", function () {
+            convertAndSendImage();
+        })
+
+    </script>
+</body>
+
+</html>

@@ -5,49 +5,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&display=swap" rel="stylesheet">
+    
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
+
      <!---------------------------------------        Font AWesome       --------------------------------------->
      <link rel="stylesheet" href="./css/all.main.css" />
      <!---------------------------------------        Main Style       --------------------------------------->
      <link rel="stylesheet" href="./css/main.css" />
+
+     <link  href="/static/js/cropperjs/cropper.css" rel="stylesheet">
 </head>
 
 <body>
 
     <div class="contineer">
 
-        <div class="sidebar">
+        <div class="sidebar hiddenSidebar">
             <div class="row">
                 <div class="col1">
                     <ul id="colOneSidebarList">
-                        <li class="liActive">
+                        <li class="GeneralSec liActive">
                             <span class="icon">
                                 <img src="./images/Svg/picture-svgrepo-com-fill.svg" alt="">
                             </span>
                             <a href="#">General</a>
                         </li>
-                        <li>
+                        <li class="FilterSec">
                             <span class="icon">
                                 <img src="./images/Svg/filter-invert-svgrepo-com.svg" alt="">
                             </span>
                             <a href="#">Filter</a>
                         </li>
-                        <li>
+                        <li class="FrameSec">
                             <span class="icon">
                                 <img src="./images/Svg/frame-svgrepo-com.svg" alt="">
                             </span>
                             <a href="#">Frame</a>
                         </li>
-                        <li>
+                        <li class="TextSec">
                             <span class="icon">
                                 <img src="./images/Svg/bold-svgrepo-com.svg" alt="">
                             </span>
                             <a href="#">Text</a>
                         </li>
-                        <li>
+                        <li class="StickerSec"> 
                             <span class="icon">
                                 <img src="./images/Svg/hurt-svgrepo-com.svg" alt="">
                             </span>
-                            <a href="#">Stickers</a>
+                            <a href="#">Sticker</a>
 
                         </li>
                     </ul>
@@ -59,7 +72,7 @@
                                 <img src="./images/Svg/resize-out-svgrepo-com.svg" alt="">
                                 <p>Resize</p>
                             </div>
-                            <div class="resizeCont dsiable">
+                            <div class="resizeCont disable">
                                 <p>selct the size from the menu </p>
                                 <select name="Resize" id="ResizeImg">
                                     <option value="7.5:10">7.5x10</option>
@@ -79,15 +92,23 @@
                                     </div>
                                 </div>
                                 <div class="Resizebtn">
-                                    <button class="ResizeCancle">cancle</button>
                                     <button class="ResizeSend" >Resize</button>
+                                    <button class="ResizeCancle">cancle</button>
                                 </div>
                             </div>
                         </li>
                         <li>
-                            <div class="liHeader">
+                            <div class="liHeader cropHeader">
                                 <img src="./images/Svg/crop-svgrepo-com.svg" alt="">
                                 <p>Crop</p>
+                            </div>
+                            <div class="cropCont disable">
+                                <p>Select part of image to crop it</p>
+                                <div class="btnSec">
+                                    <button class="cropSend" id="btn-crop">Crop</button>
+                                    <button class="cropCancle" id="btn-crop-cancle">Cancle</button>
+                                </div>
+
                             </div>
 
                         </li>
@@ -105,6 +126,8 @@
                         </li>
                     </ul>
                     <ul class="ulNum-1">
+                        <h3>Add Filter To Img</h3>
+
                         {%for item in filters%}
                         <li>
                             <img src="{{item.src}}" name ="{{item.name}}"  class ="filters" alt="">
@@ -113,13 +136,89 @@
                         {% endfor %}
                     </ul>
                     <ul class="ulNum-2">
-                        222
+                        <div class="frameSrtting">
+                            <h3>Add Frame To Img</h3>
+
+                            <div class="sBtn">
+                                <button id="frameDoneButton">Done</button>
+                                <button id="frameCancleButton">Cancle</button>
+                            </div>
+                            <div class="frameCont" id="frameUpload">
+                                <p>
+                                    <label class="pretty-upload  frameUpload">
+                                        <input multiple type="file" accept="image/png" name="frame" id="file"  />
+                                            Upload frame From Computer
+                                    </label>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="framesCont">
+                            {%for item in frames%}
+                            <li>
+                                <img src="{{item.src}}" name ="{{item.name}}"  class ="frame" alt="">
+                                <span>{{item.name}}</span>
+                            </li>
+                            {% endfor %}
+                            
+                        </div>
+
+
+
+
                     </ul>
                     <ul class="ulNum-3">
-                        333
+                        <div class="controls">
+                            <h3>Add Text To Img</h3>
+                            <input type="text" id="textInput" placeholder="Enter your text here">
+                            <select id="fontTypeInput">
+                                <option value="Arial">Arial</option>
+                                <option value="Courier New">Courier New</option>
+                                <option value="Verdana">Verdana</option>
+                                <option value="Droid Arabic Kufi">Droid Arabic Kufi</option>
+                                <option value="Andalus">Andalus</option>
+                                <option value="cairo">cairo</option>
+                                <option value="Tajawal">Tajawal</option>
+                            </select>
+                            <div class="ColorInput">
+                                <label for="fontColorInput">Pick a color</label>
+                                <input type="color" id="fontColorInput" value="#43a047">
+                            </div>
+                            <input type="number" id="fontSizeInput" placeholder="Font Size" value="40">
+
+                            
+                            <button id="addButton">Add Text</button>
+                            <div class="tBtn">
+                                <button id="doneButton">Done</button>
+                                <button id="cancleButton">Cancle</button>
+                            </div>
+                        </div>
                     </ul>
                     <ul class="ulNum-4">
-                        444
+                        <div class="stickerControls">
+                            <div class="stickerSetting">
+                                <h3>Add Sticker To Img</h3>
+
+                                <input type="number" name="sizeOfSticker" id="widthOfSticker" placeholder="Sticker width" min="0" max="100">
+                                <input type="number" name="sizeOfSticker" id="heightOfSticker" placeholder="Sticker height" min="0" max="100">
+                                <div class="sBtn">
+                                    <button id="stickerDoneButton">Done</button>
+                                    <button id="stickerCancleButton">Cancle</button>
+                                </div>
+                            </div>
+
+
+                            <div class="stickerCont">
+
+                                {%for item in stickers%}
+                                <li>
+                                    <img src="{{item.src}}" name ="{{item.name}}"  class ="frame" alt="">
+                                    <span>{{item.name}}</span>
+                                </li>
+                                {% endfor %}
+                                
+                            </div>
+
+                        </div>
                     </ul>
                 </div>
             </div>
@@ -135,7 +234,7 @@
                     <div class="pre"><</div>
                     <div class="img">
                     </div>
-                    <div class="nex">></div>
+                    <div class="nex ">></div>
                 </div>
                 <div class="elseImg"></div>
                 </div>
@@ -144,7 +243,7 @@
                     <label class="pretty-upload">
                         <input type="file" multiple type="file" accept="image/*" name="image" id="file"
                             onchange="loadFile(event)" />
-                        Upload From Computer
+                        Upload images From Computer
                     </label>
                 </p>
             </div>
@@ -166,5 +265,7 @@
 
 <script src="/static/js/main.js"></script>
 <script src="/static/js/handleSelectedPhoto.js"></script>
+<script src="/static/js/cropperjs/cropper.js"></script>
+
 
 </html>

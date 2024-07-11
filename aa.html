@@ -1,0 +1,66 @@
+<pre>
+<font color="#5e6d03">#define</font> <font color="#000000">C_4</font> <font color="#000000">261</font>
+<font color="#5e6d03">#define</font> <font color="#000000">D_4</font> <font color="#000000">293</font>
+<font color="#5e6d03">#define</font> <font color="#000000">E_4</font> <font color="#000000">329</font>
+<font color="#5e6d03">#define</font> <font color="#000000">F_4</font> <font color="#000000">349</font>
+<font color="#5e6d03">#define</font> <font color="#000000">G_4</font> <font color="#000000">392</font>
+<font color="#5e6d03">#define</font> <font color="#000000">A_4</font> <font color="#000000">440</font>
+<font color="#5e6d03">#define</font> <font color="#000000">B_4</font> <font color="#000000">493</font>
+
+<font color="#5e6d03">#define</font> <font color="#000000">C</font> <font color="#000000">10</font>
+<font color="#5e6d03">#define</font> <font color="#000000">D</font> <font color="#000000">9</font>
+<font color="#5e6d03">#define</font> <font color="#000000">E</font> <font color="#000000">8</font>
+<font color="#5e6d03">#define</font> <font color="#000000">F</font> <font color="#000000">7</font>
+<font color="#5e6d03">#define</font> <font color="#000000">G</font> <font color="#000000">6</font>
+<font color="#5e6d03">#define</font> <font color="#000000">A</font> <font color="#000000">5</font>
+<font color="#5e6d03">#define</font> <font color="#000000">B</font> <font color="#000000">4</font>
+
+<font color="#5e6d03">#define</font> <font color="#000000">Buzz</font> <font color="#000000">11</font>
+<font color="#00979c">void</font> &nbsp;<font color="#5e6d03">setup</font><font color="#000000">(</font><font color="#000000">)</font>
+<font color="#000000">{</font>
+ &nbsp;<font color="#d35400">pinMode</font><font color="#000000">(</font><font color="#000000">C</font><font color="#434f54">,</font> <font color="#00979c">INPUT_PULLUP</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<font color="#d35400">pinMode</font><font color="#000000">(</font><font color="#000000">D</font><font color="#434f54">,</font> <font color="#00979c">INPUT_PULLUP</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<font color="#d35400">pinMode</font><font color="#000000">(</font><font color="#000000">E</font><font color="#434f54">,</font> <font color="#00979c">INPUT_PULLUP</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<font color="#d35400">pinMode</font><font color="#000000">(</font><font color="#000000">F</font><font color="#434f54">,</font> <font color="#00979c">INPUT_PULLUP</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<font color="#d35400">pinMode</font><font color="#000000">(</font><font color="#000000">G</font><font color="#434f54">,</font> <font color="#00979c">INPUT_PULLUP</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<font color="#d35400">pinMode</font><font color="#000000">(</font><font color="#000000">A</font><font color="#434f54">,</font> <font color="#00979c">INPUT_PULLUP</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<font color="#d35400">pinMode</font><font color="#000000">(</font><font color="#000000">B</font><font color="#434f54">,</font> <font color="#00979c">INPUT_PULLUP</font><font color="#000000">)</font><font color="#000000">;</font>
+<font color="#000000">}</font>
+<font color="#00979c">void</font> &nbsp;<font color="#5e6d03">loop</font><font color="#000000">(</font><font color="#000000">)</font>
+<font color="#000000">{</font>
+ &nbsp;<font color="#5e6d03">while</font> <font color="#000000">(</font><font color="#d35400">digitalRead</font><font color="#000000">(</font><font color="#000000">C</font><font color="#000000">)</font> <font color="#434f54">==</font> &nbsp;<font color="#00979c">LOW</font><font color="#000000">)</font>
+ &nbsp;<font color="#000000">{</font>
+ &nbsp;&nbsp;&nbsp;<font color="#d35400">tone</font><font color="#000000">(</font><font color="#000000">Buzz</font><font color="#434f54">,</font> <font color="#000000">C_4</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<font color="#000000">}</font>
+ &nbsp;<font color="#5e6d03">while</font> <font color="#000000">(</font><font color="#d35400">digitalRead</font><font color="#000000">(</font><font color="#000000">D</font><font color="#000000">)</font> &nbsp;<font color="#434f54">==</font> &nbsp;<font color="#00979c">LOW</font><font color="#000000">)</font>
+ &nbsp;<font color="#000000">{</font>
+ &nbsp;&nbsp;&nbsp;<font color="#d35400">tone</font><font color="#000000">(</font><font color="#000000">Buzz</font><font color="#434f54">,</font> <font color="#000000">D_4</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<font color="#000000">}</font>
+ &nbsp;<font color="#5e6d03">while</font> <font color="#000000">(</font><font color="#d35400">digitalRead</font><font color="#000000">(</font><font color="#000000">E</font><font color="#000000">)</font> &nbsp;<font color="#434f54">==</font> &nbsp;<font color="#00979c">LOW</font><font color="#000000">)</font>
+ &nbsp;<font color="#000000">{</font>
+ &nbsp;&nbsp;&nbsp;<font color="#d35400">tone</font><font color="#000000">(</font><font color="#000000">Buzz</font><font color="#434f54">,</font> <font color="#000000">E_4</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<font color="#000000">}</font>
+ &nbsp;<font color="#5e6d03">while</font> <font color="#000000">(</font><font color="#d35400">digitalRead</font><font color="#000000">(</font><font color="#000000">F</font><font color="#000000">)</font> &nbsp;<font color="#434f54">==</font> &nbsp;<font color="#00979c">LOW</font><font color="#000000">)</font>
+ &nbsp;<font color="#000000">{</font>
+ &nbsp;&nbsp;&nbsp;<font color="#d35400">tone</font><font color="#000000">(</font><font color="#000000">Buzz</font><font color="#434f54">,</font> <font color="#000000">F_4</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<font color="#000000">}</font>
+ &nbsp;<font color="#5e6d03">while</font> <font color="#000000">(</font><font color="#d35400">digitalRead</font><font color="#000000">(</font><font color="#000000">G</font><font color="#000000">)</font> &nbsp;<font color="#434f54">==</font> &nbsp;<font color="#00979c">LOW</font><font color="#000000">)</font>
+ &nbsp;<font color="#000000">{</font>
+ &nbsp;&nbsp;&nbsp;<font color="#d35400">tone</font><font color="#000000">(</font><font color="#000000">Buzz</font><font color="#434f54">,</font> <font color="#000000">G_4</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<font color="#000000">}</font>
+ &nbsp;<font color="#5e6d03">while</font> <font color="#000000">(</font><font color="#d35400">digitalRead</font><font color="#000000">(</font><font color="#000000">A</font><font color="#000000">)</font> &nbsp;<font color="#434f54">==</font> &nbsp;<font color="#00979c">LOW</font><font color="#000000">)</font>
+ &nbsp;<font color="#000000">{</font>
+ &nbsp;&nbsp;&nbsp;<font color="#d35400">tone</font><font color="#000000">(</font><font color="#000000">Buzz</font><font color="#434f54">,</font> <font color="#000000">A_4</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<font color="#000000">}</font>
+ &nbsp;<font color="#5e6d03">while</font> <font color="#000000">(</font><font color="#d35400">digitalRead</font><font color="#000000">(</font><font color="#000000">B</font><font color="#000000">)</font> &nbsp;<font color="#434f54">==</font> &nbsp;<font color="#00979c">LOW</font><font color="#000000">)</font>
+ &nbsp;<font color="#000000">{</font>
+ &nbsp;&nbsp;&nbsp;<font color="#d35400">tone</font><font color="#000000">(</font><font color="#000000">Buzz</font><font color="#434f54">,</font> <font color="#000000">B_4</font><font color="#000000">)</font><font color="#000000">;</font>
+ &nbsp;<font color="#000000">}</font>
+ &nbsp;<font color="#d35400">noTone</font><font color="#000000">(</font><font color="#000000">Buzz</font><font color="#000000">)</font><font color="#000000">;</font>
+<font color="#000000">}</font>
+
+
+
+
+
+</pre>

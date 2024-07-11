@@ -1,6 +1,6 @@
 /* general style */
 
-
+@import url(http://fonts.googleapis.com/earlyaccess/droidarabickufi.css);
 
 
 *{
@@ -65,6 +65,8 @@ body{
     padding: 14px;
     text-align: center;
     border-bottom: 1px solid #ddd;
+    cursor: pointer;
+
 }
 
 .sidebar ul li a{
@@ -94,8 +96,9 @@ body{
 .sidebar .col2{
     background-color: #fff;
     width: 100%;
-    padding-top: 50px;
+    padding: 50px 0;
     overflow-y: scroll;
+
 }
 
 .sidebar .col2::-webkit-scrollbar{
@@ -103,13 +106,14 @@ body{
 }
 
 .sidebar .col2 ul.ulNum-1 span{
-    color: #43a043;
+    color: #43a047;
     font-size: 14px;
     font-weight: 700;
 }
 
 .sidebar .col2 ul li{
     padding: 15px;
+    width: 100%;
 }
 
 .sidebar .col2 ul li .liHeader{
@@ -134,27 +138,35 @@ body{
     color: #666;
 }
 
-.sidebar .col2 ul .ResizeHeader{
+.sidebar .col2 ul .liHeader{
     position: relative;
 }
-
 .sidebar .col2 ul li .resizeCont{
+    top: 20%;
+
+}
+.sidebar .col2 ul li .cropCont{
+    top: 216px;
+}
+.sidebar .col2 ul li .resizeCont,
+.sidebar .col2 ul li .cropCont{
     background-color: #fff;
     position: absolute;
-    top: 20%;
-    right: 10px;
-    width: 72%;
+    right: 1px;
+
+    width: 78%;
     height: 100%;
-    padding: 20px 0;
-    color: #666;    
+    padding: 20px 10px;
+    color: #666;
+    z-index: 99;
     transition: 0.5s all ease-in-out;
 }
 
-.sidebar .col2 ul li .resizeCont.dsiable{
+.sidebar .col2 ul li .disable{
     top: 200%;
 }
 
-.sidebar .col2 ul li .resizeCont p{
+.sidebar .col2 ul li  p{
     font-size: 14px;
 }
 
@@ -170,7 +182,7 @@ body{
 .OR{
     font-size: 20px !important;
     font-weight: 700;
-    color: #43a043;
+    color: #43a047;
     margin: 10px auto;
 }
 
@@ -208,7 +220,7 @@ body{
     width: 100px;
     outline: none;
     border: none;
-    background-color: #43a043;
+    background-color: #43a047;
     color: #fff;
     padding: 10px;
     cursor: pointer;
@@ -217,8 +229,7 @@ body{
 
 /* upload image contineer style */
 .primContineer{
-    width: calc(100vw - 300px);
-    margin-left: 300px;
+    width: 100vw;
     padding: 20px;
     display: flex;
     justify-content: center;
@@ -251,7 +262,7 @@ body{
     display: none !important;
 }
 
-.cont {
+.cont, .framesCont {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -259,6 +270,12 @@ body{
     flex-wrap: wrap;
     width: 100%;
     height: 100%;
+}
+
+.framesCont span{
+    color: #43a047;
+    font-size: 14px;
+    font-weight: 700;
 }
 
 .cont.hidden{
@@ -276,6 +293,13 @@ body{
 
 .cont .imageCont img{
     width: 250px;
+    height: 150px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.cont .imageCont canvas{
+    max-width: 250px;
     height: 150px;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
@@ -299,13 +323,29 @@ body{
 }
 
 .cont .imageCont span.bgFill{
-    background-color: #43a043;
+    background-color: #43a047;
 }
 
 .moreUpload{
     width: 250px;
     height: 170px;
     line-height: 160px;
+}
+
+.frameUpload{
+    width: 205px;
+    height: 100%;
+    line-height: 160px;   
+    font-size: 12px;
+    margin: 16px;    
+}
+
+.frameUpload input{
+    display: none;
+}
+
+.framesCont li img{
+    width: 100%;
 }
 
 .popUp{
@@ -350,9 +390,11 @@ body{
 .mainImg .img{
     display: flex;
     justify-content: center;
-    max-width: 100%;
-    max-height: 350px;
+    width: 100%;
+    height: 350px;
 }
+
+
 
 .mainImg img{
     width: 75%;
@@ -369,7 +411,7 @@ body{
 .elseImg img{
     width: 150px;
     height: 90px;
-    border: 3px solid #43a043;
+    border: 3px solid #43a047;
     border-radius: 6px;
     opacity: 0.5;
 }
@@ -380,3 +422,221 @@ body{
 .moreUpload input{
     display: none;
 }
+
+.cropCont p{
+    font-size: 14px !important;
+    padding: 16px 0 0;
+    font-weight: 500;
+}
+
+.btnSec{
+
+    width: 210px;
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+
+.btnSec button{
+    width: 100px;
+    outline: none;
+    border: none;
+    background-color: #43a047;
+    color: #fff;
+    padding: 10px;
+    cursor: pointer;
+}
+
+
+.hiddenSidebar{
+    width: 0 !important; 
+    display: none !important;
+}
+
+
+/* text style */
+.controls{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    gap: 30px;
+}
+.col2 h3{
+    color: #43a047;
+    text-align: center;
+    margin: 20px 0 30px 0;
+    font-size: 24px;
+}
+.controls input, .controls button, .controls select, .ulNum-4 input{
+    width: calc(100% - 40px);
+    height: 40px;
+    color: #43a047;
+    outline: none;
+    border: 2px solid #43a047;
+    border-radius: 4px;
+    padding: 10px;
+    cursor: pointer;
+
+}
+.controls button{
+    font-weight: 700;
+    color: #fff;
+    background-color: #43a047;
+}
+
+.controls .tBtn{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    width: calc(100% - 40px);
+
+}
+.controls .tBtn button{
+    width: calc(50% - 10px);
+}
+
+.controls input[type = text]{
+    height: 40px;
+
+}
+
+.ColorInput {
+    width: calc(100% - 20px);
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 10px 0 10px;
+    color: #43a047;
+    font-size: 14px;
+}
+input[type="color"] {
+	-webkit-appearance: none;
+	border: none;
+	width: 32px;
+	height: 32px;
+    padding: 0;
+    cursor: pointer;
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+	padding: 0;
+
+}
+input[type="color"]::-webkit-color-swatch {
+	border: none;
+    border-radius: 4px;
+
+}
+
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  } 
+
+  option{
+    color: #43a047;
+    height: 40px;
+    padding: 20px;
+  }
+
+  .stickerControls{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    /* gap: 30px; */
+  }
+
+  .stickerCont{
+    width: 100%;
+
+  }
+
+.stickerSetting{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px;
+    gap: 30px;
+    width: calc(100% - 40px);
+  }
+
+  .stickerSetting input{
+    width: 100%;
+  }
+
+ .ulNum-4 button, .ulNum-2 button{
+    width: calc(100% - 40px);
+    height: 40px;
+    color: #43a047;
+    outline: none;
+    border: 2px solid #43a047;
+    border-radius: 4px;
+    padding: 10px;
+    cursor: pointer;
+
+}
+.ulNum-4 button, .ulNum-2 button{
+    font-weight: 700;
+    color: #fff;
+    background-color: #43a047;
+}
+
+.ulNum-4 .sBtn, .ulNum-2 .sBtn{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    width: calc(100% - 40px);
+
+}
+
+.ulNum-4 .sBtn{
+    width: 100%;
+}
+.ulNum-4 .sBtn button, .ulNum-2 .sBtn button{
+    width: calc(50% - 10px);
+}
+
+
+.ulNum-2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.frameSrtting{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* position: fixed;
+    background-color: #fff;
+    top: 0;
+    padding-top: 40px; */
+}
+/* .framesCont{
+    margin-top: 300px;
+} */
+/* .stickerCont{
+    margin: 260px 0 0 0;
+}
+.stickerSetting{
+    position: fixed;
+    background: #fff;
+    width: 226px;
+    padding: 240px 10px 20px;
+    top: -220px;
+}
+
+.stickerSetting h3{
+    margin: 0;
+
+
+} */
