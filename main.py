@@ -1,6 +1,5 @@
 import os 
 import base64
-<<<<<<< HEAD
 from pathlib import Path
 import shutil
 from flask import Flask,render_template,send_from_directory,send_file,request,jsonify
@@ -8,12 +7,6 @@ from function import getFilters ,getFrames,getStickers
 from editImage import filterDic,get_image_dpi,convertImage
 
 path_save_photos = Path.home() / "Pictures" / "imageEditor"
-=======
-
-from flask import Flask,render_template,send_from_directory,send_file,request,jsonify
-from function import getFilters ,getFrames,getStickers
-from editImage import filterDic,get_image_dpi,convertImage
->>>>>>> 892011ba0b35b0a2e158fb687a4105fe732069f7
 app = Flask(__name__)
 
 try:
@@ -113,10 +106,6 @@ def applyresize(filename):
         if(os.path.exists(app.instance_path+'/editbyfilter/'+image)):
             dpi = get_image_dpi(app.instance_path+'/editbyfilter/'+image)
             convertImage(int(index),app.instance_path+'/editbyfilter/'+image,dpi,app.instance_path+'/editbyfilter/'+image)
-<<<<<<< HEAD
-=======
-
->>>>>>> 892011ba0b35b0a2e158fb687a4105fe732069f7
         else:
             dpi = get_image_dpi(app.instance_path+'/uploads/'+image)
             convertImage(int(index),app.instance_path+'/uploads/'+image,dpi,app.instance_path+'/editbyfilter/'+image)
@@ -147,7 +136,6 @@ def handleFrame():
         print(number)
         file.save(f"{path}frame ({number}).png")
     return "as"
-<<<<<<< HEAD
 @app.route('/save',methods=['POST'])
 def save():
     if  Path.exists(path_save_photos):
@@ -155,6 +143,4 @@ def save():
     shutil.copytree(os.path.join(app.instance_path,'editbyfilter'),path_save_photos)
     return "ok"
     
-=======
->>>>>>> 892011ba0b35b0a2e158fb687a4105fe732069f7
 app.run(host='0.0.0.0',port=5000)
