@@ -38,7 +38,7 @@ const loadFile = (event) => {
             getSize(image, i);
         }
     }
-    fetch(`${window.location.href}/ImageUploaded`, {
+    fetch(`http://${window.location.host}/ImageUploaded`, {
         method: 'POST',
         body: imageFormData,
     }).then(function (response) {
@@ -88,7 +88,7 @@ const onDrop = (event) => {
         }
 
     }
-    fetch(`${window.location.href}/ImageUploaded`, {
+    fetch(`http://${window.location.host}/ImageUploaded`, {
         method: 'POST',
         body: imageFormData,
     }).then(function (response) {
@@ -107,9 +107,9 @@ const onDrop = (event) => {
 
 // get the size of the images (width*height) and add span element under the image in the page
 function getSize(image, i) {
-    let imgWidth = image.naturalWidth;
-    let imgHight = image.naturalHeight;
-    let txt = document.createTextNode(imgWidth + "x" + imgHight + " px");
+    let imgWidth = image.naturalWidth * 2.54 / 72;
+    let imgHight = image.naturalHeight * 2.54 / 72;
+    let txt = document.createTextNode(Math.round(imgWidth * 10) / 10 + "cm" + Math.round(imgHight * 10) / 10 + " cm");
     if (((image.parentNode.children).length) <= 2) {
         let size = document.createElement('span');
         size.id = "sizeOfImgNum-" + i;
@@ -322,6 +322,8 @@ function croPImg() {
                 image.classList.remove("cropper-hidden")
                 elseImage();
                 manegSatur(cropedImg);
+                preImageInPopUp();
+
 
             })
         }
@@ -361,38 +363,20 @@ function closePopUpFun(imggg, mainImg) {
 }
 
 function preImageInPopUp(imggg) {
-    let pre = document.querySelector(".pre")
-    pre.addEventListener('click', () => {
-        if (isImgSelectedElSrc.indexOf(imggg.src) == 0) {
-            imggg.src = isImgSelectedEl[isImgSelectedElSrc.length - 1].src;
-            imggg.id = isImgSelectedEl[isImgSelectedElSrc.length - 1].id;
-        }
-        else {
-            imggg.src = (isImgSelectedEl[isImgSelectedElSrc.indexOf(imggg.src) - 1].src);
-            imggg.id = (isImgSelectedEl[isImgSelectedElSrc.indexOf(imggg.src)].id);
-        }
-        manegSatur(imggg);
+    let elseImg = document.querySelectorAll(".elseImg img");
+
+    elseImg.forEach(function(el) {
+        el.addEventListener("click", ()=>{
+            let imgOfmainImg = document.querySelector(".popUp .mainImg .img img")
+            imgOfmainImg.src = el.src
+            imgOfmainImg.id = el.id
+            manegSatur(el);
+        })
+
     })
 }
 
 function nxtImageInPopUp(imggg) {
-    let next = document.querySelector(".nex")
-    next.addEventListener('click', () => {
-        if (isImgSelectedElSrc.indexOf(imggg.src) == (isImgSelectedElSrc.length - 1)) {
-            imggg.id = isImgSelectedEl[0].id;
-            imggg.src = isImgSelectedEl[0].src;
-
-
-        }
-        else {
-            imggg.id = (isImgSelectedEl[isImgSelectedElSrc.indexOf(imggg.src) + 1]).id;
-            imggg.src = (isImgSelectedEl[isImgSelectedElSrc.indexOf(imggg.src) + 1].src);
-            // isImgSelectedEl.forEach(function(el){
-            //     console.log(el.id)
-            // })
-        }
-        manegSatur(imggg);
-    })
 
 }
 
@@ -425,8 +409,9 @@ function imagePopUp() {
             elseImage();
 
             manegSatur(imggg);
-            preImageInPopUp(imggg);
-            nxtImageInPopUp(imggg);
+            preImageInPopUp();
+
+
             popUpWindow.classList.remove("disable");
 
             croPImg();
@@ -605,6 +590,8 @@ function Text() {
             convertImageToBase64(imgSrc, document.querySelector(".imageCont img#" + imgSrc.id).name);
 
         }, 100)
+        preImageInPopUp();
+
 
     });
 
@@ -626,6 +613,8 @@ function Text() {
         isEditing = false;
 
         manegSatur(imgSrc);
+        preImageInPopUp();
+
     });
 
 
@@ -808,6 +797,7 @@ function Sticker() {
         }, 100)
 
 
+        preImageInPopUp();
 
     });
 
@@ -828,6 +818,8 @@ function Sticker() {
         elseImage();
         isEditing = false;
         manegSatur(imgSrc);
+        preImageInPopUp();
+
     });
 
     function drawCanvas() {
@@ -925,7 +917,7 @@ function Frames() {
             FramesSrc = document.querySelectorAll(".framesCont li img")
 
             freamechange()
-            fetch(`${window.location.href}/FrameUploaded`, {
+            fetch(`http://${window.location.host}/FrameUploaded`, {
                 method: 'POST',
                 body: imageFormData,
             }).then(function (response) {
@@ -979,6 +971,8 @@ function Frames() {
                 convertImageToBase64(myel, document.querySelector(".imageCont img#" + myel.id).name);
 
             }, 100)
+            preImageInPopUp();
+
         });
 
         frameCancleButton.addEventListener('click', function () {
@@ -997,6 +991,8 @@ function Frames() {
             elseImage();
             isEditing = false;
             manegSatur(myel);
+            preImageInPopUp();
+
         });
 
         function drawCanvas() {
@@ -1048,9 +1044,22 @@ function convertImageToBase64(img, name) {
 
 all = document.querySelector('#select-all')
 save = document.querySelector('#save')
+printer = document.querySelector('#print')
 
+
+printer.addEventListener("click", async function () {
+
+    if (window.isImgSelected.length > 0)
+        fetch(`http://${window.location.host}/printer`, {
+            method: 'POST',
+            body: JSON.stringify({ 'image': window.isImgSelected }),
+            "headers": { "Content-Type": "application/json" },
+        }).then(function (response) {
+            console.log(response.status)
+        })
+})
 save.addEventListener("click", async function () {
-    fetch(`${window.location.href}/save`, {
+    fetch(`http://${window.location.host}/save`, {
         method: 'POST',
         body: JSON.stringify({ 'image': 12 }),
         "headers": { "Content-Type": "application/json" },
@@ -1060,11 +1069,31 @@ save.addEventListener("click", async function () {
 })
 
 all.addEventListener("click", async function () {
-    imageSelectIcons.forEach((item, index) => {
-        item.classList.add("bgFill")
-        isImgSelectedEl.push(document.getElementById("imageNum-" + item.id.slice(10, item.id.length)))
-        isImgSelectedElSrc.push(document.getElementById("imageNum-" + item.id.slice(10, item.id.length)).src)
-        isImgSelected.push(document.getElementById("imageNum-" + item.id.slice(10, item.id.length)).name) //change to name
-        window.isImgSelected = isImgSelected
-    })
+    window.isImgSelected = [];
+    isImgSelected =[];
+    isImgSelectedEl = [];
+    isImgSelectedElSrc = [];
+
+    if(all.classList.contains("act")){
+        let par = document.querySelector("#select-all p");
+        par.innerText = "Select All"
+        all.classList.remove("act")
+        imageSelectIcons.forEach((item, index) => {
+            item.classList.remove("bgFill")
+        })
+    }
+    else{
+        all.classList.add("act")
+        let par = document.querySelector("#select-all p");
+        par.innerText = "Clear All"
+        imageSelectIcons.forEach((item, index) => {
+            item.classList.add("bgFill")
+            isImgSelectedEl.push(document.getElementById("imageNum-" + item.id.slice(10, item.id.length)))
+            isImgSelectedElSrc.push(document.getElementById("imageNum-" + item.id.slice(10, item.id.length)).src)
+            isImgSelected.push(document.getElementById("imageNum-" + item.id.slice(10, item.id.length)).name) //change to name
+            window.isImgSelected = isImgSelected
+        })
+    }
+
+
 })

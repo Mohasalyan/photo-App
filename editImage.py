@@ -75,14 +75,7 @@ filterDic ={
     'Origin':Origin
 }
 
-def get_image_dpi(image_path):
 
-    pil_image = Image.open(image_path)
-    dpi = pil_image.info.get('dpi')
-    if dpi:
-        return dpi
-    else:
-        return (72, 72)  
 
 def convertP2C(pixel,dpi):
     return pixel / dpi
@@ -93,13 +86,23 @@ def convertC2P(cm,dpi):
 
 
 def convertImage(index,path,dpi,save):
-    resizeData = [(7.5,10),(10,15),(15,20),]
-    shape = (int(resizeData[index][0] *dpi[0]),int(resizeData[index][1] *dpi[1]))
-    print(dpi,shape,resizeData[0])
     img = cv2.imread(path)
+    print(path)
+    resizeData=[]
+    if img.shape[0] > img.shape[1]:
+        resizeData = [(7.5,10),(10,15),(15,20),]
+    else :
+        resizeData = [(10,7.5),(15,10),(20,15),]
+    
+    shape = (int(resizeData[index][0] *72/2.54),int(resizeData[index][1] *72/2.54))
+    print(dpi,shape,resizeData[0])
     resized_image = cv2.resize(img,shape)
     cv2.imwrite(save,resized_image)
 
+
+
+def getImageSize(path):
+    return cv2.imread(path).shape
 # convertImage(0,'C:/Users/XPRISTO/Desktop/306735038_3084260165054148_6564624860134792767_n.jpg',(96,96))
     
 # print(get_image_dpi('E:/ImageEditor/ImageEditor/instance/uploads/306735038_3084260165054148_6564624860134792767_n.jpg'))

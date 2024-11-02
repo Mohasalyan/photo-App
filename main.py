@@ -4,8 +4,9 @@ from pathlib import Path
 import shutil
 from flask import Flask,render_template,send_from_directory,send_file,request,jsonify
 from function import getFilters ,getFrames,getStickers
-from editImage import filterDic,get_image_dpi,convertImage
-
+from editImage import filterDic,convertImage ,getImageSize
+from time import sleep
+from testPrinter import print_image
 path_save_photos = Path.home() / "Pictures" / "imageEditor"
 app = Flask(__name__)
 
@@ -104,14 +105,27 @@ def applyresize(filename):
         image = request.json.get('image','')
         index = request.json.get('sizeIndex','')
         if(os.path.exists(app.instance_path+'/editbyfilter/'+image)):
-            dpi = get_image_dpi(app.instance_path+'/editbyfilter/'+image)
-            convertImage(int(index),app.instance_path+'/editbyfilter/'+image,dpi,app.instance_path+'/editbyfilter/'+image)
+            convertImage(int(index),app.instance_path+'/editbyfilter/'+image,72,app.instance_path+'/editbyfilter/'+image)
         else:
-            dpi = get_image_dpi(app.instance_path+'/uploads/'+image)
-            convertImage(int(index),app.instance_path+'/uploads/'+image,dpi,app.instance_path+'/editbyfilter/'+image)
+            convertImage(int(index),app.instance_path+'/uploads/'+image,72,app.instance_path+'/editbyfilter/'+image)
+        return "done"
     elif request.method == 'GET':
         return  send_from_directory(f"{os.path.join(app.instance_path,'editbyfilter')}",filename.split('?')[0])
 
+@app.route('/printer',methods=['POST'])
+def printer():
+    print(request.json)
+    images = request.json.get('image','')
+    if images:
+        for image_name in images:
+            size =getImageSize(app.instance_path+'/editbyfilter/'+image_name)
+            width_in_cm =round(size[0]*2.54/72,1)
+            height_in_cm =round(size[1]*2.54/72,1)
+            path_image = app.instance_path+'/editbyfilter/'+image_name
+            rotate_img= (width_in_cm > height_in_cm)
+            offset_x_cm =0
+            offset_y_cm =0
+            # print_image(path_image,width_in_cm,height_in_cm,rotate_img ,offset_x_cm,offset_y_cm)
 
     return jsonify({'data':"done"})
 @app.route('/ImageUploaded' , methods=['POST'])
@@ -138,9 +152,15 @@ def handleFrame():
     return "as"
 @app.route('/save',methods=['POST'])
 def save():
-    if  Path.exists(path_save_photos):
+    print(path_save_photos,Path.exists(path_save_photos))
+    if Path.exists(path_save_photos):
+        if os.listdir(path_save_photos):
+            for i in os.listdir(path_save_photos):
+                os.remove('{}/{}'.format(path_save_photos,i))
         os.rmdir(path_save_photos)
+    sleep(0.1)
     shutil.copytree(os.path.join(app.instance_path,'editbyfilter'),path_save_photos)
     return "ok"
-    
-app.run(host='0.0.0.0',port=5000)
+
+
+app.run(host='0.0.0.0',port=5000 ,debug=True)

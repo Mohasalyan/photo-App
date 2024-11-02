@@ -5,10 +5,9 @@ let time = new Date().getTime();
 filtes.forEach((e) => {
     e.addEventListener('click', function () {
         console.log(e.getAttribute('name'))
-        console.log(window.isImgSelected)
         if (window.isImgSelected.length > 0) {
             time = new Date().getTime();
-            fetch(`${window.location.href}/filter/filter`, {
+            fetch(`http://${window.location.host}/filter/filter`, {
                 method: 'POST',
                 body: JSON.stringify({ 'imageList': window.isImgSelected, 'filter': e.getAttribute('name') }),
                 "headers": { "Content-Type": "application/json" },
@@ -31,7 +30,7 @@ resizeButton.addEventListener('click', function () {
 
     let ResizeImg = document.querySelector('#ResizeImg');
     if (window.isImgSelected.length > 0) {
-        fetch(`${window.location.href}/resize/resize`, {
+        fetch(`http://${window.location.host}/resize/resize`, {
             method: 'POST',
             body: JSON.stringify({ 'image': window.isImgSelected[0], 'sizeIndex': ResizeImg.selectedIndex }),
             "headers": { "Content-Type": "application/json" },

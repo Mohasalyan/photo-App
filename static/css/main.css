@@ -101,6 +101,11 @@ body{
 
 }
 
+.sidebar .col2 button{
+    border: none;
+    cursor: pointer;
+}
+
 .sidebar .col2::-webkit-scrollbar{
     display: none;
 }

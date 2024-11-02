@@ -61,7 +61,6 @@ def print_image(path,width,height,rotate=False ,offset_x=0,offset_y=0):
     hDC = win32ui.CreateDC ()
     hDC.CreatePrinterDC (printer_name)
     dpi_printer = hDC.GetDeviceCaps (LOGPIXELSX), hDC.GetDeviceCaps (LOGPIXELSY)
-    print(dpi_printer)
     bmp = Image.open (file_name)
     if rotate:
         bmp = bmp.rotate (90)
@@ -69,7 +68,7 @@ def print_image(path,width,height,rotate=False ,offset_x=0,offset_y=0):
     hDC.StartDoc(file_name)
     hDC.StartPage ()
 
-    dib = ImageWin.Dib (bmp)
+    dib = ImageWin.Dib(bmp)
     print((int((dpi_printer[0]*offset_x)/2.54),int((dpi_printer[1]*offset_y)/2.54),int((dpi_printer[0]*width)/2.54),int((dpi_printer[1]*height)/2.54)))
     dib.draw (hDC.GetHandleOutput (), (int((dpi_printer[0]*offset_x)/2.54),int((dpi_printer[1]*offset_y)/2.54),int((dpi_printer[0]*width)/2.54),int((dpi_printer[1]*height)/2.54)))
     
@@ -79,11 +78,11 @@ def print_image(path,width,height,rotate=False ,offset_x=0,offset_y=0):
     
 
 
-width_in_cm =2
-height_in_cm =2
-path_image ="test2.jpg"
-rotate_img=False
-offset_x_cm =1
-offset_y_cm =0
+# width_in_cm =2
+# height_in_cm =2
+# path_image ="test2.jpg"
+# rotate_img=False
+# offset_x_cm =1
+# offset_y_cm =0
 
-print_image(path_image,width_in_cm,height_in_cm,rotate_img ,offset_x_cm,offset_y_cm)
+# print_image(path_image,width_in_cm,height_in_cm,rotate_img ,offset_x_cm,offset_y_cm)
